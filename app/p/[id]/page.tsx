@@ -61,17 +61,9 @@ export default async function PastePage({
   }
 
   return (
-    <html>
-      <head>
-        <title>Paste</title>
-        <meta charSet="utf-8" />
-      </head>
-      <body>
-        <pre style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
-          {escapeHtml(paste.content)}
-        </pre>
-      </body>
-    </html>
+    <pre style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
+      {escapeHtml(paste.content)}
+    </pre>
   );
 }
 
