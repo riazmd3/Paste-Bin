@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, CSSProperties } from "react";
 
 export default function Home() {
   const [content, setContent] = useState("");
@@ -215,7 +215,7 @@ export default function Home() {
   );
 }
 
-const styles = {
+const styles: Record<string, CSSProperties> = {
   container: {
     minHeight: "100vh",
     backgroundColor: "#f5f5f5",
@@ -223,7 +223,7 @@ const styles = {
     fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
   },
   header: {
-    textAlign: "center" as const,
+    textAlign: "center",
     marginBottom: "40px",
     paddingTop: "40px",
   },
@@ -236,7 +236,7 @@ const styles = {
     WebkitBackgroundClip: "text",
     WebkitTextFillColor: "transparent",
     backgroundClip: "text",
-  },
+  } as CSSProperties,
   subtitle: {
     fontSize: "18px",
     color: "#666",
@@ -276,9 +276,9 @@ const styles = {
     border: "2px solid #e0e0e0",
     borderRadius: "8px",
     fontFamily: "monospace",
-    resize: "vertical" as const,
+    resize: "vertical",
     transition: "border-color 0.2s",
-    boxSizing: "border-box" as const,
+    boxSizing: "border-box",
   },
   input: {
     width: "100%",
@@ -287,7 +287,7 @@ const styles = {
     border: "2px solid #e0e0e0",
     borderRadius: "8px",
     transition: "border-color 0.2s",
-    boxSizing: "border-box" as const,
+    boxSizing: "border-box",
   },
   helpText: {
     display: "block",
@@ -375,7 +375,7 @@ const styles = {
   footer: {
     maxWidth: "900px",
     margin: "60px auto 20px",
-    textAlign: "center" as const,
+    textAlign: "center",
     padding: "30px",
     backgroundColor: "#ffffff",
     borderRadius: "12px",

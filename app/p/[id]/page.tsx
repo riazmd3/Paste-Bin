@@ -2,6 +2,7 @@ import { getPaste } from "@/lib/redis";
 import { getCurrentTimeMs } from "@/lib/time";
 import { headers } from "next/headers";
 import { notFound } from "next/navigation";
+import { CSSProperties } from "react";
 
 function escapeHtml(text: string): string {
   const map: Record<string, string> = {
@@ -76,7 +77,7 @@ export default async function PastePage({
   );
 }
 
-const styles = {
+const styles: Record<string, CSSProperties> = {
   container: {
     minHeight: "100vh",
     backgroundColor: "#f5f5f5",
@@ -103,7 +104,7 @@ const styles = {
   footer: {
     maxWidth: "1000px",
     margin: "40px auto 20px",
-    textAlign: "center" as const,
+    textAlign: "center",
     padding: "20px",
     backgroundColor: "#ffffff",
     borderRadius: "12px",

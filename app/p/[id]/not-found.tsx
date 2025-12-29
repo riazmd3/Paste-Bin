@@ -1,3 +1,5 @@
+import { CSSProperties } from "react";
+
 export default function NotFound() {
   return (
     <div style={styles.container}>
@@ -21,20 +23,20 @@ export default function NotFound() {
   );
 }
 
-const styles = {
+const styles: Record<string, CSSProperties> = {
   container: {
     minHeight: "100vh",
     backgroundColor: "#f5f5f5",
     padding: "20px",
     fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
     display: "flex",
-    flexDirection: "column" as const,
-    justifyContent: "space-between" as const,
+    flexDirection: "column",
+    justifyContent: "space-between",
   },
   contentBox: {
     maxWidth: "600px",
     margin: "100px auto",
-    textAlign: "center" as const,
+    textAlign: "center",
     backgroundColor: "#ffffff",
     borderRadius: "12px",
     padding: "60px 40px",
@@ -65,7 +67,7 @@ const styles = {
   footer: {
     maxWidth: "600px",
     margin: "20px auto",
-    textAlign: "center" as const,
+    textAlign: "center",
     padding: "20px",
     backgroundColor: "#ffffff",
     borderRadius: "12px",

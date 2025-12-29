@@ -1,98 +1,21 @@
-# Pastebin-Lite
+📌 Pastebin-Lite
 
-A lightweight pastebin web application built with Next.js 14, TypeScript, and Redis persistence via Upstash. Users can create text pastes with optional expiration (TTL) and view limits, and share them via unique URLs.
+Pastebin-Lite is a lightweight web application that allows users to create and share text pastes via a unique URL. Each paste can optionally expire after a specified time (TTL) or after a limited number of views. Once any configured constraint is reached, the paste becomes unavailable.
 
-## Features
+The application is built using Next.js (App Router) and is designed to run in a serverless environment. It uses a persistent storage layer to ensure data survives across requests and supports deterministic time handling for reliable automated testing.
 
-- Create text pastes with optional TTL (time-to-live) and maximum view limits
-- Share pastes via unique URLs
-- View pastes via HTML page or JSON API
-- Atomic view counting using Redis
-- Deterministic time handling for automated testing
-- Serverless-safe architecture for Vercel deployment
+Key features include:
 
-## How to Run Locally
+Create and share text pastes
 
-1. **Install dependencies:**
-   ```bash
-   npm install
-   ```
+Optional time-based expiration (TTL)
 
-2. **Set up environment variables:**
-   Create a `.env.local` file in the project root with your Upstash Redis credentials:
-   ```
-   UPSTASH_REDIS_REST_URL=your_upstash_redis_url
-   UPSTASH_REDIS_REST_TOKEN=your_upstash_redis_token
-   ```
+Optional view-count limits
 
-3. **Run the development server:**
-   ```bash
-   npm run dev
-   ```
+Safe HTML rendering of paste content
 
-4. **Open your browser:**
-   Navigate to `http://localhost:3000` to use the application.
+REST APIs for creation and retrieval
 
-## Persistence Layer
+Health check endpoint for service monitoring
 
-This application uses **Upstash Redis** for persistence. All paste data is stored in Redis under keys following the pattern `paste:<id>`. Each paste is stored as JSON with the following structure:
-
-```json
-{
-  "content": "string",
-  "created_at": number,
-  "expires_at": number | null,
-  "max_views": number | null,
-  "views": number
-}
-```
-
-The application uses Upstash Redis REST API, which is serverless-compatible and requires no database migrations or manual setup. All data operations are performed atomically to ensure consistency in concurrent scenarios.
-
-## API Endpoints
-
-### Health Check
-- `GET /api/healthz` - Returns Redis connectivity status
-
-### Create Paste
-- `POST /api/pastes` - Creates a new paste
-  - Body: `{ "content": string, "ttl_seconds": number?, "max_views": number? }`
-  - Returns: `{ "id": string, "url": string }`
-
-### Get Paste (API)
-- `GET /api/pastes/:id` - Retrieves paste content (increments view count)
-  - Returns: `{ "content": string, "remaining_views": number | null, "expires_at": string | null }`
-
-### View Paste (HTML)
-- `GET /p/:id` - Displays paste content as HTML (does not increment view count)
-
-## Important Design Decisions
-
-1. **Atomic View Counting**: View increments are performed atomically using Redis Lua scripts to prevent race conditions in concurrent scenarios.
-
-2. **Deterministic Time Handling**: When `TEST_MODE=1` environment variable is set, the application reads the `x-test-now-ms` header to use deterministic timestamps for expiry logic, enabling reliable automated testing.
-
-3. **Expiration Logic**: Pastes expire when either the TTL is reached OR the view limit is exceeded, whichever comes first. Both conditions are checked before serving a paste.
-
-4. **Serverless Architecture**: The application is designed to be stateless and serverless-safe, with no global mutable state. All state is persisted in Redis.
-
-5. **Safe HTML Rendering**: Paste content is escaped using HTML entity encoding to prevent XSS attacks. Content is displayed in a `<pre>` tag to preserve formatting.
-
-6. **Error Handling**: All API endpoints return proper JSON error responses with appropriate HTTP status codes. Unavailable pastes (missing, expired, or view limit exceeded) all return 404 status.
-
-## Deployment
-
-This application is designed for deployment on Vercel:
-
-1. Push your code to a Git repository
-2. Import the project in Vercel
-3. Add environment variables (`UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN`)
-4. Deploy
-
-The application will automatically build and deploy using the `npm run build` command. No database migrations or shell access is required - the application starts successfully with just the environment variables configured.
-
-## Created By
-
-**Riaz Mohammed**  
-Email: riazmohemed0@gmail.com  
-Candidate ID: Naukri0126
+The project is optimized for deployment on Vercel and follows best practices for reliability, security, and testability.
