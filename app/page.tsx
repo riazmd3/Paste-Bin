@@ -49,10 +49,24 @@ export default function Home() {
         body: JSON.stringify(body),
       });
 
-      const data = await response.json();
+      let data;
+      try {
+        data = await response.json();
+      } catch (jsonError) {
+        setError("Invalid response from server");
+        setLoading(false);
+        return;
+      }
 
       if (!response.ok) {
         setError(data.error || "Failed to create paste");
+        setLoading(false);
+        return;
+      }
+
+      // Validate response has required fields
+      if (!data.id || !data.url) {
+        setError("Invalid response format from server");
         setLoading(false);
         return;
       }

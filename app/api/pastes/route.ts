@@ -91,10 +91,19 @@ export async function POST(request: NextRequest) {
       { status: 201 }
     );
   } catch (error) {
+    console.error("Error creating paste:", error);
     if (error instanceof SyntaxError) {
       return NextResponse.json(
         { error: "Invalid JSON" },
         { status: 400 }
+      );
+    }
+    // Check if it's a Redis connection error
+    const errorMessage = error instanceof Error ? error.message : "Unknown error";
+    if (errorMessage.includes("UPSTASH_REDIS") || errorMessage.includes("Redis")) {
+      return NextResponse.json(
+        { error: "Database connection error. Please check your Redis credentials." },
+        { status: 500 }
       );
     }
     return NextResponse.json(
