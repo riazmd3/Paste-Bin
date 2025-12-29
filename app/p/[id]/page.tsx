@@ -61,9 +61,61 @@ export default async function PastePage({
   }
 
   return (
-    <pre style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
-      {escapeHtml(paste.content)}
-    </pre>
+    <div style={styles.container}>
+      <div style={styles.contentBox}>
+        <pre style={styles.pre}>{escapeHtml(paste.content)}</pre>
+      </div>
+      <footer style={styles.footer}>
+        <p style={styles.footerText}>
+          Created by <strong>Riaz Mohammed</strong> | 
+          Email: <a href="mailto:riazmohemed0@gmail.com" style={styles.footerLink}>riazmohemed0@gmail.com</a> | 
+          Candidate ID: <strong>Naukri0126</strong>
+        </p>
+      </footer>
+    </div>
   );
 }
 
+const styles = {
+  container: {
+    minHeight: "100vh",
+    backgroundColor: "#f5f5f5",
+    padding: "20px",
+    fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
+  },
+  contentBox: {
+    maxWidth: "1000px",
+    margin: "40px auto",
+    backgroundColor: "#ffffff",
+    borderRadius: "12px",
+    padding: "40px",
+    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+  },
+  pre: {
+    whiteSpace: "pre-wrap",
+    wordWrap: "break-word",
+    margin: "0",
+    fontSize: "14px",
+    lineHeight: "1.6",
+    color: "#333",
+    fontFamily: "monospace",
+  },
+  footer: {
+    maxWidth: "1000px",
+    margin: "40px auto 20px",
+    textAlign: "center" as const,
+    padding: "20px",
+    backgroundColor: "#ffffff",
+    borderRadius: "12px",
+    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.05)",
+  },
+  footerText: {
+    margin: "0",
+    fontSize: "13px",
+    color: "#666",
+  },
+  footerLink: {
+    color: "#667eea",
+    textDecoration: "none",
+  },
+};

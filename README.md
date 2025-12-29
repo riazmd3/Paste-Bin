@@ -13,24 +13,25 @@ A lightweight pastebin web application built with Next.js 14, TypeScript, and Re
 
 ## How to Run Locally
 
-1. Install dependencies:
+1. **Install dependencies:**
    ```bash
    npm install
    ```
 
-2. Set up environment variables:
-   Create a `.env.local` file with your Upstash Redis credentials:
+2. **Set up environment variables:**
+   Create a `.env.local` file in the project root with your Upstash Redis credentials:
    ```
    UPSTASH_REDIS_REST_URL=your_upstash_redis_url
    UPSTASH_REDIS_REST_TOKEN=your_upstash_redis_token
    ```
 
-3. Run the development server:
+3. **Run the development server:**
    ```bash
    npm run dev
    ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+4. **Open your browser:**
+   Navigate to `http://localhost:3000` to use the application.
 
 ## Persistence Layer
 
@@ -45,6 +46,8 @@ This application uses **Upstash Redis** for persistence. All paste data is store
   "views": number
 }
 ```
+
+The application uses Upstash Redis REST API, which is serverless-compatible and requires no database migrations or manual setup. All data operations are performed atomically to ensure consistency in concurrent scenarios.
 
 ## API Endpoints
 
@@ -86,5 +89,10 @@ This application is designed for deployment on Vercel:
 3. Add environment variables (`UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN`)
 4. Deploy
 
-The application will automatically build and deploy using the `npm run build` command.
+The application will automatically build and deploy using the `npm run build` command. No database migrations or shell access is required - the application starts successfully with just the environment variables configured.
 
+## Created By
+
+**Riaz Mohammed**  
+Email: riazmohemed0@gmail.com  
+Candidate ID: Naukri0126
