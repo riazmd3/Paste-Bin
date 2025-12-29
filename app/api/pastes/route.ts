@@ -75,13 +75,29 @@ export async function POST(request: NextRequest) {
 
     await setPaste(id, pasteData);
 
-    // Get the host from the request
-    const host = request.headers.get("host") || "localhost:3000";
-    // Check for forwarded protocol (Vercel/proxy) or use https in production
-    const protocol =
-      request.headers.get("x-forwarded-proto") ||
-      (process.env.NODE_ENV === "production" ? "https" : "http");
-    const url = `${protocol}://${host}/p/${id}`;
+    // Get the base URL dynamically from the request
+    // This works in both development and production (Vercel)
+    // Use the request URL if available, otherwise construct from headers
+    let baseUrl: string;
+    try {
+      const url = new URL(request.url);
+      baseUrl = `${url.protocol}//${url.host}`;
+    } catch {
+      // Fallback to headers if URL parsing fails
+      const host = request.headers.get("host");
+      if (!host) {
+        return NextResponse.json(
+          { error: "Unable to determine host" },
+          { status: 500 }
+        );
+      }
+      const protocol =
+        request.headers.get("x-forwarded-proto") ||
+        (process.env.NODE_ENV === "production" ? "https" : "http");
+      baseUrl = `${protocol}://${host}`;
+    }
+    
+    const url = `${baseUrl}/p/${id}`;
 
     return NextResponse.json(
       {
